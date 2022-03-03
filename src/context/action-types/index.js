@@ -1,0 +1,5 @@
+export const ActionType = {
+  ADD_USER: "ADD_USER",
+  POPULATE_USERS_DATA: "POPULATE_USERS_DATA",
+  CLEAR_STATE: "CLEAR_STATE",
+}
