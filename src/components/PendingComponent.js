@@ -61,7 +61,7 @@ const DateComponent = ({ timestamp }) => {
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex items-center w-[90%] h-[7rem] md:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg duration-150 hover:bg-gray-300 dark:hover:bg-gray-800 dark:bg-gray-700 duration-150 ">
+    <div className="flex items-center w-[90%] h-[7rem] md:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg duration-150 hover:bg-gray-300 dark:hover:bg-gray-800 dark:bg-gray-700">
       {children}
     </div>
   )

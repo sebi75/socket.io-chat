@@ -16,6 +16,8 @@ const data = [
 ]
 
 export const Navigation = () => {
+  const { usersData } = useContext(GlobalState)
+
   return (
     <>
       <MainLayout>
@@ -28,7 +30,7 @@ export const Navigation = () => {
                   There is no chat to display
                 </p>
               )}
-              <Chats data={data} />
+              <Chats data={usersData.friends} />
             </div>
           </div>
         </InterLayout>
@@ -40,6 +42,8 @@ export const Navigation = () => {
 }
 
 const PhoneNav = () => {
+  const { usersData } = useContext(GlobalState)
+
   return (
     <div className="w-[5rem] md:hidden shadow-lg flex flex-col items-center mt-[1rem] z-50">
       {data.length <= 0 && (
@@ -47,7 +51,7 @@ const PhoneNav = () => {
           There is no chat to display
         </p>
       )}
-      <Chats data={data} />
+      <Chats data={usersData.friends} />
     </div>
   )
 }
