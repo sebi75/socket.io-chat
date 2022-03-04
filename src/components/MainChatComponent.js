@@ -42,7 +42,7 @@ export const MainChatComponent = ({ channelID }) => {
 
   return (
     <Layout>
-      <Header userDisplayName={channelID} />
+      <Header />
       <MessagesDisplayLayout>
         {messages.map((messageContent) => {
           const { message, timestamp, displayName, photoURL } = messageContent
@@ -69,7 +69,7 @@ export const MainChatComponent = ({ channelID }) => {
   )
 }
 
-const Header = ({ userDisplayName }) => {
+const Header = () => {
   const { chatData } = useContext(GlobalState)
 
   return (

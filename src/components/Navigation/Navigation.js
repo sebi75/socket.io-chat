@@ -65,15 +65,11 @@ const NavigationFooter = () => {
   let loadImage = user.photoURL ? user.photoURL : Men
 
   return (
-    <div className="w-full h-[13%] border-[1px] border-gray-400 dark:white-glassmorphism rounded-md flex items-center justify-center">
+    <div className="w-full h-[13%] border-[1px] border-gray-400 dark:white-glassmorphism rounded-md flex items-center justify-center bg-red-500">
       <div className="h-[75%] w-full flex items-center">
-        <div className="avatar online max-w-[5rem] w-[35%] max-h-[4rem]">
+        <div className="avatar online max-w-[4rem] w-[30%] max-h-[4rem] ml-[0.5rem]">
           <div className="rounded-full">
-            <img
-              src={loadImage}
-              alt="image"
-              className="max-w-[4rem] ml-[0.7rem]"
-            />
+            <img src={loadImage} alt="image" className="max-w-[3rem]" />
           </div>
         </div>
         <div className="flex flex-col">
