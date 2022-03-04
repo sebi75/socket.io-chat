@@ -105,7 +105,7 @@ const AddFriendComponent = () => {
         message: "The Identifier you searched for is not in our database",
       })
 
-    addFriend(usersUnique, user, setIsModalOpen)
+    addFriend(usersUnique, user, setIsModalOpen, setIsLoading)
   }
 
   return (
@@ -116,8 +116,15 @@ const AddFriendComponent = () => {
         className="ml-[1rem] input input-bordered w-full max-w-xs text-gray-700"
         placeholder={"friend's id"}
       />
-      <button className="btn btn-accent ml-[0.7rem]" onClick={addFriendHandler}>
-        <AiOutlinePlus size={25} />
+      <button
+        className={
+          isLoading
+            ? "btn btn-accent btn-square loading ml-[0.7rem]"
+            : "btn btn-accent btn-square ml-[0.7rem]"
+        }
+        onClick={addFriendHandler}
+      >
+        {!isLoading && <AiOutlinePlus size={25} />}
       </button>
     </div>
   )

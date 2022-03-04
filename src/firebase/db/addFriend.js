@@ -2,7 +2,14 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
 
 import { db } from "../firebase"
 
-export const addFriend = async (usersUnique, currentUser, setIsModalOpen) => {
+export const addFriend = async (
+  usersUnique,
+  currentUser,
+  setIsModalOpen,
+  setIsLoading
+) => {
+  setIsLoading(true)
+
   const docRef = doc(db, "usersUniques", usersUnique)
 
   const docSnap = await getDoc(docRef)
@@ -47,6 +54,8 @@ export const addFriend = async (usersUnique, currentUser, setIsModalOpen) => {
           friendRequests: arrayUnion(userDataRequest),
         }
       )
+
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -56,6 +65,7 @@ export const addFriend = async (usersUnique, currentUser, setIsModalOpen) => {
       header: "User non existent",
       message: "User with that id doesn't exist. Check that again!",
     })
+    setIsLoading(false)
   }
 }
 
