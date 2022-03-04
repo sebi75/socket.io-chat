@@ -30,7 +30,7 @@ const ChatItem = ({ name, photoURL }) => {
 
   return (
     <div
-      className="w-[90%] max-h-[5rem] mt-[0.7rem] cursor-pointer duration-150 hover:bg-gray-300 rounded-lg shadow-lg flex items-center dark:hover:bg-gray-800 dark:bg-gray-700 overflow-hidden"
+      className="w-[90%] max-h-[5rem] mt-[0.7rem] cursor-pointer duration-150 hover:bg-gray-300 rounded-lg shadow-lg flex items-center dark:hover:bg-gray-800 dark:bg-gray-700 overflow-hidden py-[0.7rem]"
       onClick={() => {
         setLoadComponent("chat")
         setCurrentChatUserId("86876876")
@@ -49,9 +49,6 @@ const ChatItem = ({ name, photoURL }) => {
       <div className="hidden md:flex flex-col">
         <p className="font-bold text-gray-700 text-[1.1rem] dark:text-white">
           {name}
-        </p>
-        <p className="dark:text-white text-[14px]">
-          {"last message was this..."}
         </p>
       </div>
     </div>
