@@ -8,12 +8,14 @@ import useDarkMode from "./hooks/useDarkMode"
 import { FirstPage } from "./pages"
 import Loader from "./components/Loader/Loader"
 import { Chat } from "./pages"
+import { SocketContext } from "./context/SocketContext/SocketContext"
 
 //todo: clear state when users signOut
 
 const App = () => {
   const { getAuthStateHandler, user, usersData, getUsersDataHandler } =
     useContext(GlobalState)
+  const { socket } = useContext(SocketContext)
   const [isLoading, setIsLoading] = useState(false)
   const [darkTheme, setDarkTheme] = useDarkMode()
 

@@ -95,7 +95,7 @@ const Label = ({ label }) => {
 const AddFriendComponent = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [usersUnique, setUsersUnique] = useState("")
-  const { user, setIsModalOpen, isModalOpen } = useContext(GlobalState)
+  const { user, setIsModalOpen } = useContext(GlobalState)
 
   const addFriendHandler = () => {
     if (usersUnique.length < 6)

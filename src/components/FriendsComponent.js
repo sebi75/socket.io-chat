@@ -3,8 +3,10 @@ import Men from "../assets/men.svg"
 import { GlobalState } from "../context/Context"
 import { AiOutlineCheck } from "react-icons/ai"
 
+import { acceptFriendRequest } from "../firebase/db/manageFriendRequest"
+
 const FriendsComponent = () => {
-  const { usersData } = useContext(GlobalState)
+  const { usersData, user } = useContext(GlobalState)
 
   console.log(usersData)
   return (
@@ -21,6 +23,8 @@ const FriendsComponent = () => {
             return (
               <FriendRequestComponent
                 key={uid}
+                uid={uid}
+                currentUid={user.id}
                 displayName={displayName}
                 timestamp={date}
                 photoURL={photoURL}
@@ -33,7 +37,12 @@ const FriendsComponent = () => {
   )
 }
 
-const FriendRequestComponent = ({ displayName, timestamp, photoURL }) => {
+const FriendRequestComponent = ({
+  displayName,
+  timestamp,
+  currentUid,
+  uid,
+}) => {
   return (
     <Layout>
       <MessageContentLayout>
@@ -43,15 +52,22 @@ const FriendRequestComponent = ({ displayName, timestamp, photoURL }) => {
           <DateComponent timestamp={timestamp} />
         </div>
       </MessageContentLayout>
-      <HandleRequestsButton />
+      <HandleRequestsButton uid={uid} currentUid={currentUid} />
     </Layout>
   )
 }
 
-const HandleRequestsButton = () => {
+const HandleRequestsButton = ({ uid, currentUid }) => {
+  const handleAcceptRequest = () => {
+    acceptFriendRequest(currentUid, uid)
+  }
+
   return (
     <div className="dark:text-white">
-      <button className="btn btn-accent dark:bg-gray-600">
+      <button
+        className="btn btn-accent dark:bg-gray-600"
+        onClick={handleAcceptRequest}
+      >
         <AiOutlineCheck size={25} />
       </button>
     </div>

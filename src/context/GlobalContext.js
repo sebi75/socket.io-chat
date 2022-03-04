@@ -25,14 +25,16 @@ const initialState = {
 }
 
 const Provider = ({ children }) => {
-  const [loadComponent, setLoadComponent] = useState("chat")
+  const [loadComponent, setLoadComponent] = useState("friends")
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isModalOpen, setIsModalOpen] = useState({
     isOpen: false,
     header: "",
     message: "",
   })
-  const [currentChatUserId, setCurrentChatUserId] = useState("")
+
+  const [chatData, setChatData] = useState({})
+
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -80,7 +82,6 @@ const Provider = ({ children }) => {
   }
 
   const sampleValueObject = {
-    setCurrentChatUserId,
     setIsModalOpen,
     isModalOpen,
     signUpWithGooglePopup,
@@ -97,6 +98,8 @@ const Provider = ({ children }) => {
     loadComponent,
     usersData: state.usersData,
     user: state.user,
+    setChatData,
+    chatData,
   }
 
   return (

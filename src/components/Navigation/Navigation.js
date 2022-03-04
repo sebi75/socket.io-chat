@@ -15,7 +15,7 @@ const data = [
   { name: "Dev" },
 ]
 
-export const Navigation = () => {
+export const Navigation = ({ setNavigateChannel }) => {
   const { usersData } = useContext(GlobalState)
 
   return (
@@ -30,7 +30,10 @@ export const Navigation = () => {
                   There is no chat to display
                 </p>
               )}
-              <Chats data={usersData.friends} />
+              <Chats
+                data={usersData.friends}
+                setNavigateChannel={setNavigateChannel}
+              />
             </div>
           </div>
         </InterLayout>

@@ -1,10 +1,12 @@
 import React from "react"
 import Men from "../../assets/men.svg"
 
-const ChatMessage = ({ message, timestamp, displayName }) => {
+const ChatMessage = ({ message, timestamp, displayName, photoURL }) => {
+  let loadPhoto = typeof photoURL !== "string" ? Men : photoURL
+
   return (
     <Layout>
-      <img src={Men} alt="" className="w-[5rem]" />
+      <img src={loadPhoto} alt="" className="w-[3.5rem] mr-[1rem]" />
 
       <MessageContentLayout>
         <div className="flex items-center">

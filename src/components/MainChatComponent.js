@@ -1,27 +1,58 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import InputEmoji from "react-input-emoji"
 
 import { GlobalState } from "../context/Context"
+import { SocketContext } from "../context/SocketContext/SocketContext"
 import ChatMessage from "./Chat/ChatMessage"
 
-export const MainChatComponent = () => {
+export const MainChatComponent = ({ channelID }) => {
   const { user } = useContext(GlobalState)
+  const { socket } = useContext(SocketContext)
+
+  console.log(channelID)
+
+  const [messages, setMessages] = useState([])
+
+  const [text, setText] = useState("")
+
+  const sendMessage = () => {
+    const messageData = {
+      displayName: user.displayName,
+      channelID: channelID,
+      uid: user.uid,
+      message: text,
+      photoURL: user.photoURL,
+      timestamp:
+        new Date(Date.now()).getHours() +
+        ":" +
+        new Date(Date.now()).getMinutes(),
+    }
+
+    socket.emit("send_message", messageData)
+  }
+
+  useEffect(() => {
+    socket.on("users", (users) => {
+      users.forEach((user) => {
+        console.log(user)
+      })
+    })
+    return () => {}
+  }, [socket])
+
   return (
     <Layout>
-      {/* <div>
-          <p>hello {user.displayName}</p>
-          <p>photoURL: {user.photoURL}</p>
-          <p>uid: {user.id}</p>
-        </div> */}
+      <Header userDisplayName={channelID} />
       <MessagesDisplayLayout>
-        {chatMessages.map((messageContent) => {
-          const { message, timestamp, displayName } = messageContent
+        {messages.map((messageContent) => {
+          const { message, timestamp, displayName, photoURL } = messageContent
           return (
             <ChatMessage
               key={Math.random().toString(36)}
               displayName={displayName}
               timestamp={timestamp}
               message={message}
+              photoURL={photoURL}
             />
           )
         })}
@@ -29,18 +60,32 @@ export const MainChatComponent = () => {
 
       {/* Input messages component */}
 
-      <FooterInputComponent />
+      <FooterInputComponent
+        setText={setText}
+        text={text}
+        sendMessage={sendMessage}
+      />
     </Layout>
   )
 }
 
-const FooterInputComponent = () => {
-  const [text, setText] = useState("")
+const Header = ({ userDisplayName }) => {
+  const { chatData } = useContext(GlobalState)
 
+  return (
+    <div className="w-full bg-gray-400 h-[5%] shadow-lg flex items-center">
+      <h1 className="dark:text-white text-gray-700 text-2xl font-bold ml-[2rem]">
+        {chatData.displayName}
+      </h1>
+    </div>
+  )
+}
+
+const FooterInputComponent = ({ setText, text, sendMessage }) => {
   const handleOnEnter = () => {
-    console.log("send message")
-    console.log(text)
+    sendMessage()
   }
+
   return (
     <div className="flex justify-center items-center h-[15%]">
       <InputEmoji
@@ -56,7 +101,7 @@ const FooterInputComponent = () => {
 }
 
 const MessagesDisplayLayout = ({ children }) => {
-  return <div className="w-full h-[85%]">{children}</div>
+  return <div className="w-full h-[80%]">{children}</div>
 }
 
 const Layout = ({ children }) => {
