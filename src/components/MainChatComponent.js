@@ -9,8 +9,6 @@ export const MainChatComponent = ({ channelID }) => {
   const { user } = useContext(GlobalState)
   const { socket } = useContext(SocketContext)
 
-  console.log(channelID)
-
   const [messages, setMessages] = useState([])
 
   const [text, setText] = useState("")
@@ -29,16 +27,25 @@ export const MainChatComponent = ({ channelID }) => {
     }
 
     socket.emit("send_message", messageData)
+
+    setMessages((current) => [current, messageData])
   }
 
   useEffect(() => {
-    socket.on("users", (users) => {
-      users.forEach((user) => {
-        console.log(user)
-      })
+    socket.on("receive_message", (data) => {
+      console.log(data)
     })
-    return () => {}
-  }, [socket])
+
+    socket.on("connectToRoom", (message) => {
+      console.log(message)
+    })
+
+    socket.emit("join_room", { channelID: channelID })
+
+    return () => {
+      socket.emit("leave_room", { channelID: channelID, uid: user.id })
+    }
+  }, [socket, channelID])
 
   return (
     <Layout>
