@@ -1,9 +1,6 @@
 import React, { useContext } from "react"
 import Men from "../assets/men.svg"
 import { GlobalState } from "../context/Context"
-import { AiOutlineCheck } from "react-icons/ai"
-
-import { acceptFriendRequest } from "../firebase/db/manageFriendRequest"
 
 const FriendsComponent = () => {
   const { usersData, user } = useContext(GlobalState)
@@ -11,22 +8,20 @@ const FriendsComponent = () => {
   console.log(usersData)
   return (
     <MainLayout>
-      {usersData.friendRequests.length < 1 ? (
+      {usersData.friends.length < 1 ? (
         <p className="dark:text-white text-gray-700 font-bold text-xl">
-          No friend requests
+          You don't have any friends in your list currently
         </p>
       ) : (
         <>
-          {usersData.friendRequests.map((friendRequest) => {
-            const { displayName, timestamp, photoURL, uid } = friendRequest
-            let date = timestamp.toDate().toLocaleString()
+          {usersData.friends.map((friend) => {
+            const { displayName, photoURL, uid } = friend
             return (
               <FriendRequestComponent
                 key={uid}
                 uid={uid}
                 currentUid={user.id}
                 displayName={displayName}
-                timestamp={date}
                 photoURL={photoURL}
               />
             )
@@ -52,25 +47,8 @@ const FriendRequestComponent = ({
           <DateComponent timestamp={timestamp} />
         </div>
       </MessageContentLayout>
-      <HandleRequestsButton uid={uid} currentUid={currentUid} />
+      {/* <HandleRequestsButton uid={uid} currentUid={currentUid} /> */}
     </Layout>
-  )
-}
-
-const HandleRequestsButton = ({ uid, currentUid }) => {
-  const handleAcceptRequest = () => {
-    acceptFriendRequest(currentUid, uid)
-  }
-
-  return (
-    <div className="dark:text-white">
-      <button
-        className="btn btn-accent dark:bg-gray-600"
-        onClick={handleAcceptRequest}
-      >
-        <AiOutlineCheck size={25} />
-      </button>
-    </div>
   )
 }
 
@@ -87,7 +65,7 @@ const DateComponent = ({ timestamp }) => {
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex items-center w-[90%] h-[7rem] md:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg dark:hover:bg-gray-800 dark:bg-gray-700 duration-150 hover:bg-gray-300 justify-between">
+    <div className="flex items-center w-[90%] h-[7rem] md:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg dark:hover:bg-gray-800 dark:bg-gray-700 duration-150 hover:bg-gray-300 justify-between cursor-pointer">
       {children}
     </div>
   )
@@ -95,7 +73,7 @@ const Layout = ({ children }) => {
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="flex justify-center w-[100%] md:w-[70%] lg:w-[75%] h-full">
+    <div className="flex flex-col items-center w-[100%] md:w-[70%] lg:w-[75%] h-full">
       {children}
     </div>
   )

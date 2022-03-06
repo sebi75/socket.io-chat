@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext } from "react"
 
 import { Navigation } from "../components/"
 import { MainChatComponent } from "../components"
@@ -9,29 +9,17 @@ import PendingComponent from "../components/PendingComponent"
 import FriendsComponent from "../components/FriendsComponent"
 import Loader from "../components/Loader/Loader"
 import Modal from "../components/Modal"
-import { SocketContext } from "../context/SocketContext/SocketContext"
 
 export const Chat = () => {
-  const { loadComponent, isLoading, isModalOpen, user } =
-    useContext(GlobalState)
-  const { socket } = useContext(SocketContext)
-  const [navigateChannel, setNavigateChannel] = useState("")
+  const { loadComponent, isLoading, isModalOpen } = useContext(GlobalState)
 
   const loadComponentType = {
-    chat: <MainChatComponent channelID={navigateChannel} />,
+    chat: <MainChatComponent />,
     friends: <FriendsComponent />,
     pending: <PendingComponent />,
   }
 
   let content = loadComponentType[loadComponent]
-
-  useEffect(() => {
-    if (!isLoading) {
-      const uid = user.id
-      socket.auth = { uid }
-      socket.connect()
-    }
-  }, [])
 
   return (
     <>
@@ -46,7 +34,7 @@ export const Chat = () => {
               </div>
 
               <div className={styles2}>
-                <Navigation setNavigateChannel={setNavigateChannel} />
+                <Navigation />
                 {content}
               </div>
             </div>

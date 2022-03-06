@@ -1,9 +1,11 @@
 import React, { useContext } from "react"
 import Men from "../assets/men.svg"
 import { GlobalState } from "../context/Context"
+import { AiOutlineCheck } from "react-icons/ai"
+import { acceptFriendRequest } from "../firebase/db/manageFriendRequest"
 
-const PendingComponent = ({ message, timestamp, displayName }) => {
-  const { usersData } = useContext(GlobalState)
+const PendingComponent = () => {
+  const { usersData, user } = useContext(GlobalState)
 
   console.log(usersData)
   return (
@@ -20,9 +22,12 @@ const PendingComponent = ({ message, timestamp, displayName }) => {
             return (
               <FriendRequestComponent
                 key={uid}
-                displayName={displayName}
+                uid={uid}
+                currentUid={user.id}
                 timestamp={date}
+                displayName={displayName}
                 photoURL={photoURL}
+                friendRequest={friendRequest}
               />
             )
           })}
@@ -32,7 +37,13 @@ const PendingComponent = ({ message, timestamp, displayName }) => {
   )
 }
 
-const FriendRequestComponent = ({ displayName, timestamp, photoURL }) => {
+const FriendRequestComponent = ({
+  friendRequest,
+  displayName,
+  timestamp,
+  currentUid,
+  uid,
+}) => {
   return (
     <Layout>
       <img src={Men} alt="" className="w-[5rem]" />
@@ -44,7 +55,32 @@ const FriendRequestComponent = ({ displayName, timestamp, photoURL }) => {
         </div>
         <div className="flex items-center"></div>
       </MessageContentLayout>
+      <HandleRequestsButton
+        uid={uid}
+        currentUid={currentUid}
+        friendRequest={friendRequest}
+      />
     </Layout>
+  )
+}
+
+const HandleRequestsButton = ({ uid, currentUid, friendRequest }) => {
+  const { acceptFriendRequestState } = useContext(GlobalState)
+
+  const handleAcceptRequest = () => {
+    acceptFriendRequest(currentUid, uid)
+    acceptFriendRequestState(uid, friendRequest)
+  }
+
+  return (
+    <div className="dark:text-white">
+      <button
+        className="btn btn-accent dark:bg-gray-600"
+        onClick={handleAcceptRequest}
+      >
+        <AiOutlineCheck size={25} />
+      </button>
+    </div>
   )
 }
 

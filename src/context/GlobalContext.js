@@ -17,6 +17,7 @@ import {
   addUsersDataFromDb,
   setUserAction,
   clearStateWhenSignout,
+  acceptRequest,
 } from "./action-creators"
 
 const initialState = {
@@ -46,6 +47,10 @@ const Provider = ({ children }) => {
 
   const setUser = (user) => {
     dispatch(setUserAction(user))
+  }
+
+  const acceptFriendRequestState = (uid, newFriend) => {
+    dispatch(acceptRequest(uid, newFriend))
   }
 
   const addUsersData = (usersData) => {
@@ -85,6 +90,7 @@ const Provider = ({ children }) => {
     setIsModalOpen,
     isModalOpen,
     signUpWithGooglePopup,
+    acceptFriendRequestState,
     signWithGooglePopup,
     getUsersDataHandler,
     getAuthStateHandler,

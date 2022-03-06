@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore"
 
 import { db } from "../firebase"
 
@@ -27,8 +27,7 @@ export const addFriend = async (
 
     const userDataRequest = {
       uid: currentUser.id,
-      photoUrl:
-        currentUser.photoURL !== null ? currentUser.photoURL : "linkToPhoto",
+      photoUrl: currentUser.photoURL !== null ? currentUser.photoURL : null,
       displayName: currentUser.displayName,
       timestamp: new Date(),
     }

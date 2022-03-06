@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from "react"
 import InputEmoji from "react-input-emoji"
 
+import ScrollToBottom from "react-scroll-to-bottom"
 import { GlobalState } from "../context/Context"
 import { SocketContext } from "../context/SocketContext/SocketContext"
 import ChatMessage from "./Chat/ChatMessage"
 
-export const MainChatComponent = ({ channelID }) => {
+import { saveConversation } from "../firebase/db/saveConversation"
+
+export const MainChatComponent = () => {
   const { user } = useContext(GlobalState)
-  const { socket } = useContext(SocketContext)
-
-  const [messages, setMessages] = useState([])
-
   const [text, setText] = useState("")
+  const { socket, messages, setMessages, channelID } = useContext(SocketContext)
 
   const sendMessage = () => {
     const messageData = {
@@ -26,31 +26,28 @@ export const MainChatComponent = ({ channelID }) => {
         new Date(Date.now()).getMinutes(),
     }
 
-    socket.emit("send_message", messageData)
-
-    setMessages((current) => [current, messageData])
+    if (messageData.message !== "") {
+      socket.emit("send_message", messageData)
+    }
   }
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data)
-    })
-
-    socket.on("connectToRoom", (message) => {
+    socket.on("receive_message", (message) => {
       console.log(message)
-    })
 
-    socket.emit("join_room", { channelID: channelID })
+      setMessages((curr) => [...curr, message])
+    })
 
     return () => {
-      socket.emit("leave_room", { channelID: channelID, uid: user.id })
+      saveConversation(channelID, messages)
     }
-  }, [socket, channelID])
+  }, [socket])
 
   return (
     <Layout>
       <Header />
-      <MessagesDisplayLayout>
+
+      <ScrollToBottom className="w-full h-[80%]">
         {messages.map((messageContent) => {
           const { message, timestamp, displayName, photoURL } = messageContent
           return (
@@ -63,9 +60,7 @@ export const MainChatComponent = ({ channelID }) => {
             />
           )
         })}
-      </MessagesDisplayLayout>
-
-      {/* Input messages component */}
+      </ScrollToBottom>
 
       <FooterInputComponent
         setText={setText}
@@ -80,7 +75,7 @@ const Header = () => {
   const { chatData } = useContext(GlobalState)
 
   return (
-    <div className="w-full bg-gray-400 h-[5%] shadow-lg flex items-center">
+    <div className="w-full h-[5%] shadow-xl flex items-center">
       <h1 className="dark:text-white text-gray-700 text-2xl font-bold ml-[2rem]">
         {chatData.displayName}
       </h1>
@@ -107,38 +102,6 @@ const FooterInputComponent = ({ setText, text, sendMessage }) => {
   )
 }
 
-const MessagesDisplayLayout = ({ children }) => {
-  return <div className="w-full h-[80%]">{children}</div>
-}
-
 const Layout = ({ children }) => {
   return <div className="w-[100%] md:w-[70%] lg:w-[75%] h-full">{children}</div>
 }
-
-const chatMessages = [
-  {
-    displayName: "Sebastian",
-    message: "Hello violeta",
-    timestamp: "Today 13:40",
-  },
-  {
-    displayName: "Violeta",
-    message: "Heyy",
-    timestamp: "Today 13:40",
-  },
-  {
-    displayName: "Violeta",
-    message: "How are you?",
-    timestamp: "Today 13:40",
-  },
-  {
-    displayName: "Sebastian",
-    message: "I'm fine, just chilling watching some netflix",
-    timestamp: "Today 13:40",
-  },
-  {
-    displayName: "Violeta",
-    message: "Are you down going out?",
-    timestamp: "Today 13:40",
-  },
-]

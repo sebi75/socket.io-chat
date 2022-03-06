@@ -114,7 +114,7 @@ const LinkToSignUpComponent = ({ message, type, setLoadComponent }) => {
       <p className="text-gray-800 dark:text-white">{message}</p>
       <div className="ml-[0.5rem]">
         <p
-          className="font-bold text-gray-800 dark:text-white"
+          className="font-bold text-gray-800 dark:text-white cursor-pointer"
           onClick={() => setLoadComponent("signup")}
         >
           {type}

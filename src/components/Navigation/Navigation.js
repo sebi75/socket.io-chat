@@ -3,19 +3,7 @@ import { GlobalState } from "../../context/Context"
 import Men from "../../assets/men.svg"
 import { Chats } from "../Chats"
 
-const data = [
-  { name: "Sebi" },
-  { name: "Nana" },
-  { name: "gogo" },
-  { name: "Node" },
-  { name: "Dev" },
-  { name: "Dev" },
-  { name: "Dev" },
-  { name: "Dev" },
-  { name: "Dev" },
-]
-
-export const Navigation = ({ setNavigateChannel }) => {
+export const Navigation = ({}) => {
   const { usersData } = useContext(GlobalState)
 
   return (
@@ -25,15 +13,12 @@ export const Navigation = ({ setNavigateChannel }) => {
           <Label label={"Chats"} />
           <div className="w-full">
             <div className="w-full flex justify-center">
-              {data.length <= 0 && (
+              {usersData.friends.length <= 0 && (
                 <p className="flex items-center justify-center font-bold text-base">
                   There is no chat to display
                 </p>
               )}
-              <Chats
-                data={usersData.friends}
-                setNavigateChannel={setNavigateChannel}
-              />
+              <Chats data={usersData.friends} />
             </div>
           </div>
         </InterLayout>
@@ -49,7 +34,7 @@ const PhoneNav = () => {
 
   return (
     <div className="w-[5rem] md:hidden shadow-lg flex flex-col items-center mt-[1rem] z-50">
-      {data.length <= 0 && (
+      {usersData.friends.length <= 0 && (
         <p className="flex items-center justify-center font-bold text-base">
           There is no chat to display
         </p>

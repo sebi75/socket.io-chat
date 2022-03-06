@@ -19,3 +19,13 @@ export const clearStateWhenSignout = () => {
     type: ActionType.CLEAR_STATE,
   }
 }
+
+export const acceptRequest = (uid, newFriend) => {
+  return {
+    type: ActionType.ACCEPT_REQUEST,
+    payload: {
+      uid: uid,
+      newFriend: newFriend,
+    },
+  }
+}

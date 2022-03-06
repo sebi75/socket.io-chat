@@ -8,6 +8,19 @@ export const reducer = (state, action) => {
         user: action.payload,
       }
 
+    case ActionType.ACCEPT_REQUEST:
+      console.log(state)
+      return {
+        ...state,
+        usersData: {
+          ...state.usersData,
+          friendRequests: state.usersData.friendRequests.filter(
+            (request) => request.uid !== action.payload.uid
+          ),
+          friends: [...state.usersData.friends, action.payload.newFriend],
+        },
+      }
+
     case ActionType.POPULATE_USERS_DATA:
       return {
         ...state,

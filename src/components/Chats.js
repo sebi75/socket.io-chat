@@ -3,8 +3,9 @@ import React, { useContext } from "react"
 import Men from "../assets/men.svg"
 
 import { GlobalState } from "../context/Context"
+import { SocketContext } from "../context/SocketContext/SocketContext"
 
-export const Chats = ({ data, setNavigateChannel }) => {
+export const Chats = ({ data }) => {
   return (
     <Layout>
       {data.map((object) => {
@@ -13,8 +14,7 @@ export const Chats = ({ data, setNavigateChannel }) => {
             key={Math.random().toString(36)}
             name={object.displayName}
             photoURL={object.photoUrl}
-            channelID={object.channelID}
-            setNavigateChannel={setNavigateChannel}
+            currentChannelID={object.channelID}
             uid={object.uid}
           />
         )
@@ -23,22 +23,39 @@ export const Chats = ({ data, setNavigateChannel }) => {
   )
 }
 
-const ChatItem = ({ name, photoURL, channelID, setNavigateChannel }) => {
-  const { setLoadComponent, setChatData, chatData } = useContext(GlobalState)
+const ChatItem = ({ name, photoURL, currentChannelID }) => {
+  const { setLoadComponent, setChatData, user } = useContext(GlobalState)
+  const { socket, setMessages, setChannelID, channelID } =
+    useContext(SocketContext)
 
   let loadPhoto = typeof photoURL === "undefined" ? Men : photoURL
+
+  const handleChangeChat = () => {
+    socket.emit("leave_room", {
+      // emit event for leaving previous room f it was one
+      channelID: channelID,
+    })
+
+    setChannelID(currentChannelID) // set channel id to the current displayed
+
+    socket.emit("join_room", { channelID: currentChannelID })
+
+    setLoadComponent("chat") // load the chat component
+
+    console.log(currentChannelID)
+
+    //for header displayName
+    setChatData({
+      displayName: name,
+      photoURL: photoURL,
+    })
+    setMessages([])
+  }
 
   return (
     <div
       className="w-[90%] max-h-[5rem] mt-[0.7rem] cursor-pointer duration-150 hover:bg-gray-300 rounded-lg shadow-lg flex items-center dark:hover:bg-gray-800 dark:bg-gray-700 overflow-hidden py-[0.7rem]"
-      onClick={() => {
-        setLoadComponent("chat")
-        setNavigateChannel(channelID)
-        setChatData({
-          displayName: name,
-          photoURL: photoURL,
-        })
-      }}
+      onClick={handleChangeChat}
     >
       <div className="tooltip w-[100%] md:hidden" data-tip={name}>
         <img src={loadPhoto} alt="avatar" className="w-[100%] md:w-[35%]" />
