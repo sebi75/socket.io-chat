@@ -8,6 +8,7 @@ export const Chats = ({ data }) => {
   return (
     <ChatsLayout>
       {data.map((object) => {
+        console.log(object)
         return (
           <Friend
             key={Math.random().toString(36)}
