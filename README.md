@@ -8,7 +8,7 @@
 
 ### Nodejs and Express for the Socket.IO server.
 
-## features:
+## Features:
 
 ### - adding friends by their unique identifier (6 digits random generated number) => 720 possibilities (not a drawback, as it is not an app made for scale production)
 
