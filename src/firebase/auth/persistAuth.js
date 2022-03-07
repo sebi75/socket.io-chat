@@ -4,10 +4,6 @@ export const getAuthState = (setUser, setIsLoading) => {
   setIsLoading(true)
   auth.onAuthStateChanged((user) => {
     if (user) {
-      user.getIdTokenResult().then((idTokenResult) => {
-        const token = idTokenResult
-      })
-
       if (!user.displayName) {
         const nameToDisplay = extractDisplayName(user.email)
 

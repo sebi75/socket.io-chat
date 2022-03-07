@@ -8,7 +8,7 @@ const FriendsComponent = () => {
   return (
     <MainLayout>
       {usersData.friends.length < 1 ? (
-        <p className="dark:text-white text-gray-700 font-bold text-xl">
+        <p className="dark:text-white text-gray-700 font-bold text-xl w-[80%] flex justify-center">
           You don't have any friends in your list currently
         </p>
       ) : (
@@ -74,9 +74,6 @@ const HandleRequestsButton = ({
       hasButton: true,
       friendToRemoveId: uid,
     })
-
-    /* acceptFriendRequest(currentUid, uid)
-    acceptFriendRequestState(uid, friendRequest) */
   }
 
   return (

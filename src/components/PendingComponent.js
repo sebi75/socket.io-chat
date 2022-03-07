@@ -10,7 +10,6 @@ import {
 const PendingComponent = () => {
   const { usersData, user } = useContext(GlobalState)
 
-  console.log(usersData)
   return (
     <MainLayout>
       {usersData.friendRequests < 1 ? (

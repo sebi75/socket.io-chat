@@ -33,8 +33,6 @@ export const createAccountWithEmail = async (
 
       setUser(finalUser)
       setIsLoading(false)
-
-      // ...
     })
     .catch((error) => {
       setError("Password or email invalid")

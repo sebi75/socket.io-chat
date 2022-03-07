@@ -29,7 +29,12 @@ const Modal = ({ header, message }) => {
 
     removeFriend(user.id, isModalOpen.friendToRemoveId)
 
-    setIsModalOpen({ ...isModalOpen, confirmed: true, isOpen: false })
+    setIsModalOpen({
+      ...isModalOpen,
+      confirmed: true,
+      isOpen: false,
+      friendToRemoveId: undefined,
+    })
   }
 
   return (

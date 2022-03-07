@@ -1,6 +1,13 @@
 import { db } from "../firebase"
 
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
+
+const defaultData = {
+  friends: [],
+  friendRequests: [],
+  sentRequests: [],
+  usersUnique: null,
+}
 
 export const getUserData = async (uid, addUsersData, setIsLoading) => {
   setIsLoading(true)
@@ -12,6 +19,9 @@ export const getUserData = async (uid, addUsersData, setIsLoading) => {
     const docData = docSnap.data()
 
     addUsersData(docData)
+    setIsLoading(false)
+  } else {
+    addUsersData(defaultData)
     setIsLoading(false)
   }
 }
