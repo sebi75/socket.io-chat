@@ -39,7 +39,7 @@ export const addFriend = async (
 
       let condition = checkFriends == null || checkSentRequests == null
 
-      if (condition) {
+      if (!condition) {
         setIsModalOpen({
           isOpen: true,
           header: "Already friend",
