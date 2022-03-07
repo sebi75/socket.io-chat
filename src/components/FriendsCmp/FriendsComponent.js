@@ -24,7 +24,7 @@ const FriendsComponent = () => {
           <img
             src={Wilderness}
             alt="wilderness"
-            className="w-[80%] lg:w-[50%]"
+            className="w-[80%] lg:w-[50%] mt-[25%]"
           />
 
           {/*  <p className="dark:text-white text-gray-700 font-bold text-xl w-[80%] flex justify-center">

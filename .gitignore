@@ -9,6 +9,8 @@
 # production
 /build
 
+todos.txt
+
 # firebase
 firebase.json
 firestore.indexes.json

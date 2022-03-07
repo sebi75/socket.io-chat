@@ -1,7 +1,7 @@
 export const ModalContainer = ({ children, node }) => {
   return (
     <div
-      className="w-[35%] h-[20vh] bg-white dark:bg-gray-700 rounded-md shadow-lg flex flex-col justify-center items-center"
+      className="w-[75%] lg:w-[35%] h-[35vh] lg:h-[20vh] bg-white dark:bg-gray-700 rounded-md shadow-lg flex flex-col justify-center items-center"
       ref={node}
     >
       {children}

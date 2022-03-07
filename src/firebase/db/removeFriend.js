@@ -10,7 +10,7 @@ export const removeFriend = async (uid, friendUid) => {
   const getFriendDoc = await getDoc(friendDocRef)
   const friendDocData = getFriendDoc.data()
 
-  const channelID = friendDocData.friends.find(
+  /* const channelID = friendDocData.friends.find(
     (friend) => friend.uid === uid
   ).channelID
 
@@ -21,7 +21,7 @@ export const removeFriend = async (uid, friendUid) => {
     const deleteChannel = await deleteDoc(channelIDDocRef)
   } catch (error) {
     console.log("error in deleting the channelID")
-  }
+  } */
 
   const friendDocFilteredFriends = friendDocData.friends.filter(
     (friend) => friend.uid !== uid

@@ -9,7 +9,7 @@ const PhoneNav = () => {
     <div className="w-[5rem] md:hidden shadow-lg flex flex-col items-center mt-[1rem] z-50">
       {usersData.friends.length <= 0 && (
         <p className="flex items-center justify-center font-bold text-base text-gray-700 dark:text-white ml-[0.5rem]">
-          There is no chat to display
+          No chats
         </p>
       )}
       <Chats data={usersData.friends} />
