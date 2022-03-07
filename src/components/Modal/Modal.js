@@ -1,8 +1,15 @@
 import React, { useRef, useEffect, useContext } from "react"
-import { GlobalState } from "../context/Context"
+import { GlobalState } from "../../context/Context"
 
-import { removeFriend } from "../firebase/db/removeFriend"
+import { removeFriend } from "../../firebase/db/removeFriend"
 
+//import components from same directory
+import {
+  ModalContainer,
+  ModalHeaderContainer,
+  ModalMessageContainer,
+  Layout,
+} from "./Components"
 const Modal = ({ header, message }) => {
   const { setIsModalOpen, isModalOpen, removeFriendState, user } =
     useContext(GlobalState)
@@ -38,19 +45,12 @@ const Modal = ({ header, message }) => {
   }
 
   return (
-    <div className="flex items-center justify-center w-full h-screen bg-gray-trans dark:bg-[rgba(255,255,255,0.3)] fixed duration-1000">
-      <div
-        ref={node}
-        className="w-[35%] h-[20vh] bg-white dark:bg-gray-700 rounded-md shadow-lg flex flex-col justify-center items-center"
-      >
-        <div className="w-[90%] h-[35%] flex items-center justify-center">
-          <h1 className="dark:text-white text-gray-700 font-bold text-xl">
-            {header}
-          </h1>
-        </div>
-        <div className="w-[90%] h-[65%] text-gray-700 flex items-center justify-center">
-          <h1 className="dark:text-white text-base font-bold">{message}</h1>
-        </div>
+    <Layout className="flex items-center justify-center w-full h-screen bg-gray-trans dark:bg-[rgba(255,255,255,0.3)] fixed duration-1000">
+      <ModalContainer node={node}>
+        <ModalHeaderContainer text={header} />
+
+        <ModalMessageContainer text={message} />
+
         {isModalOpen.hasButton && (
           <button
             className="btn btn-error mb-[0.7rem] text-white"
@@ -59,13 +59,9 @@ const Modal = ({ header, message }) => {
             Confirm
           </button>
         )}
-      </div>
-    </div>
+      </ModalContainer>
+    </Layout>
   )
-}
-
-const Layout = ({ children }) => {
-  return <div>{children}</div>
 }
 
 export default Modal

@@ -5,8 +5,7 @@ import { GlobalState } from "../../../context/Context"
 import Men from "../../../assets/men.svg"
 
 const Friend = ({ name, photoURL, currentChannelID }) => {
-  const { setLoadComponent, setChatData, getUsersDataHandler } =
-    useContext(GlobalState)
+  const { setLoadComponent, setChatData } = useContext(GlobalState)
   const { setMessages, setChannelID } = useContext(SocketContext)
 
   let loadPhoto = typeof photoURL === "undefined" ? Men : photoURL
@@ -26,7 +25,7 @@ const Friend = ({ name, photoURL, currentChannelID }) => {
   }
 
   return (
-    <Layout onClick={handleChangeChat}>
+    <Layout handleChangeChat={handleChangeChat}>
       <div className="tooltip w-[100%] md:hidden" data-tip={name}>
         <img src={loadPhoto} alt="avatar" className="w-[100%] md:w-[35%]" />
       </div>

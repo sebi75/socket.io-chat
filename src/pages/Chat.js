@@ -5,10 +5,10 @@ import { MainChatComponent } from "../components"
 import { Header } from "../components"
 import { GlobalState } from "../context/Context"
 
-import PendingComponent from "../components/PendingComponent"
+import PendingComponent from "../components/PendingCmp/PendingComponent"
 import FriendsComponent from "../components/FriendsCmp/FriendsComponent"
 import Loader from "../components/Loader/Loader"
-import Modal from "../components/Modal"
+import Modal from "../components/Modal/Modal"
 
 export const Chat = () => {
   const { loadComponent, isLoading, isModalOpen } = useContext(GlobalState)
