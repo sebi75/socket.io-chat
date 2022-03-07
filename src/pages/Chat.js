@@ -10,6 +10,8 @@ import FriendsComponent from "../components/FriendsCmp/FriendsComponent"
 import Loader from "../components/Loader/Loader"
 import Modal from "../components/Modal/Modal"
 
+import Footer from "./Footer"
+
 export const Chat = () => {
   const { loadComponent, isLoading, isModalOpen } = useContext(GlobalState)
 
@@ -58,10 +60,11 @@ const styles2 = "w-full calculated-height flex flex-row"
 
 const Layout = ({ children }) => {
   return (
-    <div className="w-full h-screen flex justify-center items-center duration-150 dark:bg-gray-700 gradient-bg">
+    <div className="w-full h-screen flex flex-col justify-center items-center duration-150 dark:bg-gray-700 gradient-bg">
       <div className="flex w-full  md:w-[85%] h-full md:h-[95%] rounded-xl shadow-lg flex-col justify-center items-center overflow-hidden border-[1px] border-gray-700 dark:border-white">
         {children}
       </div>
+      <Footer />
     </div>
   )
 }

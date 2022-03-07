@@ -23,7 +23,6 @@ export const MainChatComponent = () => {
     socket.emit("join_room", { channelID })
 
     socket.on("receive_message", (message) => {
-      console.log(message)
       if (message.channelID === channelID) {
         setMessages((curr) => [...curr, message])
       }
