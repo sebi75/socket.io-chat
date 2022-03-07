@@ -27,3 +27,5 @@
 #### When a user is signing, a check id done to see if he / she already possess an unique identifier. If not, a new one is generated.
 
 #### Users are added by their unique identifier displayed under their name in the main chat app.
+
+![Friend List Photo](https://i.imgur.com/ppEFOjv.png)
