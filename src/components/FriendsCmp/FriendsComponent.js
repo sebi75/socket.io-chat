@@ -53,7 +53,7 @@ const FriendRequestComponent = ({
   return (
     <Layout>
       <MessageContentLayout>
-        <img src={Men} alt="avatar" className="w-[5rem]" />
+        <img src={Men} alt="avatar" className="w-[5rem] max-w-[4rem]" />
         <div className="flex items-center">
           <NameComponent name={displayName} />
           <DateComponent timestamp={timestamp} />

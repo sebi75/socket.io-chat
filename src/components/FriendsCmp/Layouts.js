@@ -3,7 +3,11 @@ export const MessageContentLayout = ({ children }) => {
 }
 
 export const NameComponent = ({ name }) => {
-  return <h1 className="dark:text-white text-[1.2rem] text-gray-700">{name}</h1>
+  return (
+    <h1 className="dark:text-white text-[1.2rem] text-gray-700 ml-[1rem]">
+      {name}
+    </h1>
+  )
 }
 export const DateComponent = ({ timestamp }) => {
   return <p className="ml-[0.5rem] text-gray-500">{timestamp}</p>

@@ -10,7 +10,7 @@ import {
   MainLayout,
 } from "./Layouts"
 
-import HandleRequestsButton from "./HadleRequestButton"
+import HandleRequestsButton from "./HandleRequestButton"
 
 const PendingComponent = () => {
   const { usersData, user } = useContext(GlobalState)

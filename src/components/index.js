@@ -1,3 +1,3 @@
 export { Navigation } from "./Navigation/Navigation"
-export { MainChatComponent } from "./MainChatComponent"
+export { MainChatComponent } from "./Chat/MainChatCmp/MainChatComponent"
 export { Header } from "./MainCmps/Header"

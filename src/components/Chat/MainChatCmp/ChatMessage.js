@@ -1,12 +1,12 @@
 import React from "react"
-import Men from "../../assets/men.svg"
+import Men from "../../../assets/men.svg"
 
 import {
   MessageContentLayout,
   NameComponent,
   DateComponent,
   Layout,
-} from "./Layouts"
+} from "../Layouts"
 
 const ChatMessage = ({ message, timestamp, displayName, photoURL }) => {
   let loadImage = photoURL == null ? Men : photoURL

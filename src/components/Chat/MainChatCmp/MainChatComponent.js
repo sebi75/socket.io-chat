@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect } from "react"
-import InputEmoji from "react-input-emoji"
 
 import ScrollToBottom from "react-scroll-to-bottom"
-import { GlobalState } from "../context/Context"
-import { SocketContext } from "../context/SocketContext/SocketContext"
-import ChatMessage from "./Chat/ChatMessage"
+import { GlobalState } from "../../../context/Context"
+import { SocketContext } from "../../../context/SocketContext/SocketContext"
+import ChatMessage from "./ChatMessage"
 import io from "socket.io-client"
+
+import Header from "./Header"
+import FooterInputComponent from "./FooterInput"
 
 const SERVER = "http://localhost:8080"
 let socket
@@ -76,37 +78,6 @@ export const MainChatComponent = () => {
         sendMessage={sendMessage}
       />
     </Layout>
-  )
-}
-
-const Header = () => {
-  const { chatData } = useContext(GlobalState)
-
-  return (
-    <div className="w-full h-[5%] shadow-xl flex items-center">
-      <h1 className="dark:text-white text-gray-700 text-2xl font-bold ml-[2rem]">
-        {chatData.displayName}
-      </h1>
-    </div>
-  )
-}
-
-const FooterInputComponent = ({ setText, text, sendMessage }) => {
-  const handleOnEnter = () => {
-    sendMessage()
-  }
-
-  return (
-    <div className="flex justify-center items-center h-[15%]">
-      <InputEmoji
-        value={text}
-        height={65}
-        onChange={setText}
-        cleanOnEnter
-        onEnter={handleOnEnter}
-        placeholder="Type a message"
-      />
-    </div>
   )
 }
 
