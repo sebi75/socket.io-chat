@@ -27,7 +27,7 @@ const PendingComponent = () => {
             Pending friend requests:
           </h1>
           {usersData.friendRequests.map((friendRequest) => {
-            const { displayName, timestamp, photoURL, uid } = friendRequest
+            const { displayName, timestamp, photoUrl, uid } = friendRequest
             let date = timestamp.toDate().toLocaleString()
             return (
               <FriendRequestComponent
@@ -36,7 +36,7 @@ const PendingComponent = () => {
                 currentUid={user.id}
                 timestamp={date}
                 displayName={displayName}
-                photoURL={photoURL}
+                photoURL={photoUrl}
                 friendRequest={friendRequest}
               />
             )
@@ -52,13 +52,16 @@ const FriendRequestComponent = ({
   displayName,
   timestamp,
   currentUid,
+  photoURL,
   uid,
 }) => {
+  let loadPhoto = photoURL == null ? Men : photoURL
+
   return (
     <Layout>
       <MessageContentLayout>
         <div className="flex">
-          <img src={Men} alt="" className="w-[5rem] max-w-[3.5rem]" />
+          <img src={loadPhoto} alt="" className="w-[5rem] max-w-[3.5rem]" />
           <div className="flex items-center ml-[0.7rem]">
             <NameComponent name={displayName} />
             <DateComponent timestamp={timestamp} />

@@ -20,31 +20,26 @@ const FriendsComponent = () => {
   return (
     <MainLayout>
       {usersData.friends.length < 1 ? (
-        <>
-          <img
-            src={Wilderness}
-            alt="wilderness"
-            className="w-[80%] lg:w-[50%] mt-[25%]"
-          />
-
-          {/*  <p className="dark:text-white text-gray-700 font-bold text-xl w-[80%] flex justify-center">
-          You don't have any friends in your list currently
-        </p>  */}
-        </>
+        <img
+          src={Wilderness}
+          alt="wilderness"
+          className="w-[80%] lg:w-[50%] mt-[25%]"
+        />
       ) : (
         <div className="w-full flex flex-col items-center">
           <h1 className="font-bold text-xl text-gray-700 dark:text-white mt-[1rem]">
             All your added friends:
           </h1>
           {usersData.friends.map((friend) => {
-            const { displayName, photoURL, uid } = friend
+            console.log(friend)
+            const { displayName, photoUrl, uid } = friend
             return (
               <FriendRequestComponent
                 key={uid}
                 uid={uid}
                 currentUid={user.id}
                 displayName={displayName}
-                photoURL={photoURL}
+                photoUrl={photoUrl}
               />
             )
           })}
@@ -58,12 +53,14 @@ const FriendRequestComponent = ({
   displayName,
   timestamp,
   currentUid,
+  photoUrl,
   uid,
 }) => {
+  let loadPhoto = photoUrl == null ? Men : photoUrl
   return (
     <Layout>
       <MessageContentLayout>
-        <img src={Men} alt="avatar" className="w-[5rem] max-w-[4rem]" />
+        <img src={loadPhoto} alt="avatar" className="w-[5rem] max-w-[4rem]" />
         <div className="flex items-center">
           <NameComponent name={displayName} />
           <DateComponent timestamp={timestamp} />
