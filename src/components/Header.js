@@ -28,7 +28,7 @@ const SignOut = ({ handleMode, darkTheme, styles }) => {
 
   return (
     <div className={styles ? `${styles}` : "mr-[1rem] hidden lg:flex"}>
-      <button className="mr-[0.7rem] p-[10px] rounded-lg dark:text-white">
+      <button className="mr-[0.7rem] p-[10px] rounded-lg text-gray-700 dark:text-white">
         {darkTheme ? (
           <BsFillSunFill size={23} onClick={handleMode} />
         ) : (
@@ -129,7 +129,7 @@ const AddFriendComponent = () => {
       <input
         type="text"
         onChange={(e) => setUsersUnique(e.target.value)}
-        className="ml-[1rem] input input-bordered w-full max-w-xs text-gray-700"
+        className="ml-[1rem] input input-bordered w-full max-w-xs bg-white text-gray-700"
         placeholder={"friend's id"}
       />
       <button

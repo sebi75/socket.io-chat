@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import Men from "../assets/men.svg"
 import { GlobalState } from "../context/Context"
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
@@ -74,7 +74,11 @@ const HandleRequestsButton = ({ uid, currentUid, friendRequest }) => {
     useContext(GlobalState)
 
   const handleAcceptRequest = () => {
-    acceptFriendRequest(currentUid, uid)
+    const randomGeneratedChannelID = generateRandomChannelId()
+
+    friendRequest.channelID = randomGeneratedChannelID
+
+    acceptFriendRequest(currentUid, uid, randomGeneratedChannelID)
     acceptFriendRequestState(uid, friendRequest)
   }
 
@@ -107,7 +111,7 @@ const MessageContentLayout = ({ children }) => {
 }
 
 const NameComponent = ({ name }) => {
-  return <h1 className="dark:text-white text-[1.2rem]">{name}</h1>
+  return <h1 className="dark:text-white text-gray-700 text-[1.2rem]">{name}</h1>
 }
 const DateComponent = ({ timestamp }) => {
   return <p className="ml-[0.5rem] text-gray-500">{timestamp}</p>
@@ -128,4 +132,9 @@ const MainLayout = ({ children }) => {
     </div>
   )
 }
+
+const generateRandomChannelId = () => {
+  return Math.random().toString(36).slice(2, 11)
+}
+
 export default PendingComponent

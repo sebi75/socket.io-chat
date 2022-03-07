@@ -131,7 +131,7 @@ const DisplayErrorComponent = ({ error }) => {
 export const SignGoogleButton = ({ signWithGooglePopup }) => {
   return (
     <button
-      className="btn glass flex items-center justify-center text-white mt-[1rem] w-full border-1 bg-gray-500 border-gray-500"
+      className="btn flex items-center justify-center text-white mt-[1rem] w-full border-1 bg-gray-500 border-gray-500"
       onClick={() => signWithGooglePopup()}
     >
       <FcGoogle size={24} className="mr-2" />

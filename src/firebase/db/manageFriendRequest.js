@@ -2,11 +2,11 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
 
 import { db } from "../firebase"
 
-export const acceptFriendRequest = async (currentUid, uid) => {
+export const acceptFriendRequest = async (currentUid, uid, channelID) => {
   const currentUserDocRef = doc(db, "users", currentUid)
 
   //handle the user that received the friend request:
-  const generateChannel = generateRandomChannelId()
+  const generateChannel = channelID
 
   try {
     const currentUserDoc = await getDoc(currentUserDocRef)
@@ -71,10 +71,6 @@ export const acceptFriendRequest = async (currentUid, uid) => {
   } catch (error) {
     console.log(error)
   }
-}
-
-const generateRandomChannelId = () => {
-  return Math.random().toString(36).slice(2, 11)
 }
 
 export const denyFriendRequest = async (currentUid, uid) => {

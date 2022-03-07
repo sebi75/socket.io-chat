@@ -93,7 +93,7 @@ const MessageContentLayout = ({ children }) => {
 }
 
 const NameComponent = ({ name }) => {
-  return <h1 className="dark:text-white text-[1.2rem]">{name}</h1>
+  return <h1 className="dark:text-white text-[1.2rem] text-gray-700">{name}</h1>
 }
 const DateComponent = ({ timestamp }) => {
   return <p className="ml-[0.5rem] text-gray-500">{timestamp}</p>

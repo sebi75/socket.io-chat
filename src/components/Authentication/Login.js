@@ -127,7 +127,7 @@ const LinkToSignUpComponent = ({ message, type, setLoadComponent }) => {
 export const SignGoogleButton = ({ signWithGooglePopup }) => {
   return (
     <button
-      className="btn glass bg-gray-500 flex items-center justify-center text-white mt-[1rem] w-full border-1 border-gray-500"
+      className="btn bg-gray-500 flex items-center justify-center text-white mt-[1rem] w-full border-1 border-gray-500"
       onClick={() => signWithGooglePopup()}
     >
       <FcGoogle size={24} className="mr-2" />

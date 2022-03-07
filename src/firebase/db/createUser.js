@@ -3,7 +3,11 @@ import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../firebase"
 
 export const createUser = async (uid, displayName) => {
-  const generateUserUnique = Math.floor(Math.random() * 1000000).toString()
+  let generateUserUnique = generateUnique()
+
+  if (generateUserUnique.length < 6) {
+    generateUserUnique = generateUnique()
+  }
 
   //check first if there already is a user with that id:
   const docRef = doc(db, "users", uid)
@@ -40,6 +44,10 @@ export const createUser = async (uid, displayName) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+const generateUnique = () => {
+  return Math.floor(Math.random() * 1000000).toString()
 }
 
 /* 

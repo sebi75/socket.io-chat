@@ -44,9 +44,11 @@ const Modal = ({ header, message }) => {
         className="w-[35%] h-[20vh] bg-white dark:bg-gray-700 rounded-md shadow-lg flex flex-col justify-center items-center"
       >
         <div className="w-[90%] h-[35%] flex items-center justify-center">
-          <h1 className="dark:text-white font-bold text-xl">{header}</h1>
+          <h1 className="dark:text-white text-gray-700 font-bold text-xl">
+            {header}
+          </h1>
         </div>
-        <div className="w-[90%] h-[65%] flex items-center justify-center">
+        <div className="w-[90%] h-[65%] text-gray-700 flex items-center justify-center">
           <h1 className="dark:text-white text-base font-bold">{message}</h1>
         </div>
         {isModalOpen.hasButton && (

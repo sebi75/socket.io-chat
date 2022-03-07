@@ -13,7 +13,7 @@ const ChatMessage = ({ message, timestamp, displayName, photoURL }) => {
           <NameComponent name={displayName} />
           <DateComponent timestamp={timestamp} />
         </div>
-        <p className="dark:text-white">{message}</p>
+        <p className="dark:text-white text-gray-700">{message}</p>
       </MessageContentLayout>
     </Layout>
   )
@@ -24,7 +24,7 @@ const MessageContentLayout = ({ children }) => {
 }
 
 const NameComponent = ({ name }) => {
-  return <h1 className="dark:text-white text-[1.2rem]">{name}</h1>
+  return <h1 className="dark:text-white text-gray-700 text-[1.2rem]">{name}</h1>
 }
 const DateComponent = ({ timestamp }) => {
   return <p className="ml-[0.5rem] text-gray-500">{timestamp}</p>
