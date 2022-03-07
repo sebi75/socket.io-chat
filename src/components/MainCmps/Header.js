@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react"
-import useDarkMode from "../hooks/useDarkMode"
+import useDarkMode from "../../hooks/useDarkMode"
 
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs"
 import { GiHamburgerMenu } from "react-icons/gi"
 import { AiOutlinePlus } from "react-icons/ai"
-import { GlobalState } from "../context/Context"
-import { addFriend } from "../firebase"
+import { GlobalState } from "../../context/Context"
+import { addFriend } from "../../firebase"
 
 export const Header = () => {
   const [darkTheme, setDarkTheme] = useDarkMode()

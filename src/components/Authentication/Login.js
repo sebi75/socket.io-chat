@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom"
 import { FcGoogle } from "react-icons/fc"
 import Loader from "../Loader/Loader"
 
+import { Layout, StyledText } from "./Layouts"
+
 const Login = ({ setLoadComponent }) => {
   const {
     signInWithEmail,
@@ -78,18 +80,6 @@ const Login = ({ setLoadComponent }) => {
       </Layout>
     </>
   )
-}
-
-const Layout = ({ children }) => {
-  return (
-    <div className="w-[80%] h-[80%]">
-      <div className="w-full h-full flex flex-col items-center">{children}</div>
-    </div>
-  )
-}
-
-const StyledText = ({ children }) => {
-  return <p className="text-[2rem] font-bold dark:text-white">{children}</p>
 }
 
 const DisplayErrorComponent = ({ error }) => {

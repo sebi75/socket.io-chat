@@ -1,7 +1,16 @@
-import React, { useContext, useEffect } from "react"
-import Men from "../assets/men.svg"
-import { GlobalState } from "../context/Context"
+import React, { useContext } from "react"
+import Men from "../../assets/men.svg"
+import { GlobalState } from "../../context/Context"
 import { AiOutlineClose } from "react-icons/ai"
+
+/* Styled componetns import */
+import {
+  MessageContentLayout,
+  NameComponent,
+  DateComponent,
+  Layout,
+  MainLayout,
+} from "./Layouts"
 
 const FriendsComponent = () => {
   const { usersData, user } = useContext(GlobalState)
@@ -58,13 +67,8 @@ const FriendRequestComponent = ({
   )
 }
 
-const HandleRequestsButton = ({
-  uid,
-  currentUid,
-  friendRequest,
-  displayName,
-}) => {
-  const { setIsModalOpen, isModalOpen } = useContext(GlobalState)
+const HandleRequestsButton = ({ uid, displayName }) => {
+  const { setIsModalOpen } = useContext(GlobalState)
 
   const handleRemoveFriend = () => {
     setIsModalOpen({
@@ -84,33 +88,6 @@ const HandleRequestsButton = ({
       >
         <AiOutlineClose size={25} />
       </button>
-    </div>
-  )
-}
-
-const MessageContentLayout = ({ children }) => {
-  return <div className="flex justify-between">{children}</div>
-}
-
-const NameComponent = ({ name }) => {
-  return <h1 className="dark:text-white text-[1.2rem] text-gray-700">{name}</h1>
-}
-const DateComponent = ({ timestamp }) => {
-  return <p className="ml-[0.5rem] text-gray-500">{timestamp}</p>
-}
-
-const Layout = ({ children }) => {
-  return (
-    <div className="flex items-center w-[90%] h-[7rem] md:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg dark:hover:bg-gray-800 dark:bg-gray-700 duration-150 hover:bg-gray-300 justify-between cursor-pointer">
-      {children}
-    </div>
-  )
-}
-
-const MainLayout = ({ children }) => {
-  return (
-    <div className="flex flex-col items-center w-[100%] md:w-[70%] lg:w-[75%] h-full">
-      {children}
     </div>
   )
 }

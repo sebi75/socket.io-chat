@@ -6,7 +6,7 @@ import { Header } from "../components"
 import { GlobalState } from "../context/Context"
 
 import PendingComponent from "../components/PendingComponent"
-import FriendsComponent from "../components/FriendsComponent"
+import FriendsComponent from "../components/FriendsCmp/FriendsComponent"
 import Loader from "../components/Loader/Loader"
 import Modal from "../components/Modal"
 
