@@ -77,4 +77,49 @@ const generateRandomChannelId = () => {
   return Math.random().toString(36).slice(2, 11)
 }
 
-export const denyFriendRequest = (uid) => {}
+export const denyFriendRequest = async (currentUid, uid) => {
+  const currentUserDocRef = doc(db, "users", currentUid)
+
+  //handle the user that received the friend request:
+  try {
+    const currentUserDoc = await getDoc(currentUserDocRef)
+    const currentUserDocData = currentUserDoc.data()
+
+    const allRequests = currentUserDocData.friendRequests
+
+    //filter the requests to exclude only the accepted request
+    const filteredRequests = allRequests.filter(
+      (request) => request.uid !== uid
+    )
+
+    //update the doc with new data:
+    const updateDocInit = await updateDoc(currentUserDocRef, {
+      friendRequests: filteredRequests,
+    })
+  } catch (error) {
+    console.log("error in handling the receiver logic")
+    console.log(error)
+  }
+
+  //handle the user that sent the friend request
+  try {
+    const senderUserDocRef = doc(db, "users", uid)
+
+    const senderUserDoc = await getDoc(senderUserDocRef)
+    const senderUserDocData = senderUserDoc.data()
+
+    const allSentRequests = senderUserDocData.sentRequests
+    //filter the requests sent
+    const filteredSentRequests = allSentRequests.filter(
+      (request) => request.uid !== currentUid
+    )
+
+    //update the doc with new data:
+    const updateDocInit2 = await updateDoc(senderUserDocRef, {
+      sentRequests: filteredSentRequests,
+    })
+  } catch (error) {
+    console.log("error in handling the sender logic")
+    console.log(error)
+  }
+}

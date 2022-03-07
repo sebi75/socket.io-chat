@@ -15,7 +15,7 @@ export const Chats = ({ data }) => {
             name={object.displayName}
             photoURL={object.photoUrl}
             currentChannelID={object.channelID}
-            uid={object.uid}
+            friendID={object.uid}
           />
         )
       })}
@@ -23,7 +23,7 @@ export const Chats = ({ data }) => {
   )
 }
 
-const ChatItem = ({ name, photoURL, currentChannelID }) => {
+const ChatItem = ({ name, photoURL, currentChannelID, friendID }) => {
   const { setLoadComponent, setChatData, user } = useContext(GlobalState)
   const { socket, setMessages, setChannelID, channelID } =
     useContext(SocketContext)
@@ -31,18 +31,16 @@ const ChatItem = ({ name, photoURL, currentChannelID }) => {
   let loadPhoto = typeof photoURL === "undefined" ? Men : photoURL
 
   const handleChangeChat = () => {
-    socket.emit("leave_room", {
+    /* socket.emit("leave_room", {
       // emit event for leaving previous room f it was one
       channelID: channelID,
-    })
+    }) */
 
     setChannelID(currentChannelID) // set channel id to the current displayed
 
-    socket.emit("join_room", { channelID: currentChannelID })
+    /* socket.emit("join_room", { channelID: currentChannelID }) */
 
     setLoadComponent("chat") // load the chat component
-
-    console.log(currentChannelID)
 
     //for header displayName
     setChatData({

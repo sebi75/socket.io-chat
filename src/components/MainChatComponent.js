@@ -5,13 +5,33 @@ import ScrollToBottom from "react-scroll-to-bottom"
 import { GlobalState } from "../context/Context"
 import { SocketContext } from "../context/SocketContext/SocketContext"
 import ChatMessage from "./Chat/ChatMessage"
+import io from "socket.io-client"
 
-import { saveConversation } from "../firebase/db/saveConversation"
+const SERVER = "http://localhost:8080"
+let socket
 
 export const MainChatComponent = () => {
   const { user } = useContext(GlobalState)
   const [text, setText] = useState("")
-  const { socket, messages, setMessages, channelID } = useContext(SocketContext)
+  const { messages, setMessages, channelID } = useContext(SocketContext)
+
+  useEffect(() => {
+    socket = io.connect(SERVER)
+
+    socket.emit("join_room", { channelID })
+
+    socket.on("receive_message", (message) => {
+      console.log(message)
+      if (message.channelID === channelID) {
+        setMessages((curr) => [...curr, message])
+      }
+    })
+
+    return () => {
+      socket.disconnect()
+      socket.off()
+    }
+  }, [SERVER, channelID])
 
   const sendMessage = () => {
     const messageData = {
@@ -30,18 +50,6 @@ export const MainChatComponent = () => {
       socket.emit("send_message", messageData)
     }
   }
-
-  useEffect(() => {
-    socket.on("receive_message", (message) => {
-      console.log(message)
-
-      setMessages((curr) => [...curr, message])
-    })
-
-    return () => {
-      saveConversation(channelID, messages)
-    }
-  }, [socket])
 
   return (
     <Layout>

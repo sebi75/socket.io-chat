@@ -18,6 +18,8 @@ import {
   setUserAction,
   clearStateWhenSignout,
   acceptRequest,
+  removeFriend,
+  denyRequest,
 } from "./action-creators"
 
 const initialState = {
@@ -32,6 +34,9 @@ const Provider = ({ children }) => {
     isOpen: false,
     header: "",
     message: "",
+    hasButton: false,
+    confirmed: false,
+    friendToRemoveId: undefined,
   })
 
   const [chatData, setChatData] = useState({})
@@ -39,18 +44,19 @@ const Provider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
-  /*   console.log("user simply:")
-  console.log(state.user)
-
-  console.log("usersData:")
-  console.log(state.usersData) */
-
   const setUser = (user) => {
     dispatch(setUserAction(user))
   }
 
   const acceptFriendRequestState = (uid, newFriend) => {
     dispatch(acceptRequest(uid, newFriend))
+  }
+  const denyFriendRequestState = (uid) => {
+    dispatch(denyRequest(uid))
+  }
+
+  const removeFriendState = (uid) => {
+    dispatch(removeFriend(uid))
   }
 
   const addUsersData = (usersData) => {
@@ -91,9 +97,11 @@ const Provider = ({ children }) => {
     isModalOpen,
     signUpWithGooglePopup,
     acceptFriendRequestState,
+    denyFriendRequestState,
     signWithGooglePopup,
     getUsersDataHandler,
     getAuthStateHandler,
+    removeFriendState,
     signOutHandler,
     setLoadComponent,
     signupWithEmail,

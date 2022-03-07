@@ -2,11 +2,11 @@ import React from "react"
 import Men from "../../assets/men.svg"
 
 const ChatMessage = ({ message, timestamp, displayName, photoURL }) => {
-  let loadImage = typeof photoURL === "null" ? Men : photoURL
+  let loadImage = photoURL == null ? Men : photoURL
 
   return (
     <Layout>
-      <img src={loadImage} alt="" className="w-[3.5rem] mr-[1rem]" />
+      <img src={loadImage} alt="avatar" className="w-[3.5rem] mr-[1rem]" />
 
       <MessageContentLayout>
         <div className="flex items-center">

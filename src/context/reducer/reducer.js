@@ -27,6 +27,27 @@ export const reducer = (state, action) => {
         usersData: action.payload,
       }
 
+    case ActionType.REMOVE_FRIEND:
+      return {
+        ...state,
+        usersData: {
+          ...state.usersData,
+          friends: state.usersData.friends.filter(
+            (friend) => friend.uid !== action.payload
+          ),
+        },
+      }
+    case ActionType.DENY_REQUEST:
+      return {
+        ...state,
+        usersData: {
+          ...state.usersData,
+          friendRequests: state.usersData.friendRequests.filter(
+            (request) => request.uid !== action.payload
+          ),
+        },
+      }
+
     case ActionType.CLEAR_STATE:
       return {
         ...state,

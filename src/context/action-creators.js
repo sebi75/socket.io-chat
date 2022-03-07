@@ -29,3 +29,17 @@ export const acceptRequest = (uid, newFriend) => {
     },
   }
 }
+
+export const removeFriend = (uid) => {
+  return {
+    type: ActionType.REMOVE_FRIEND,
+    payload: uid,
+  }
+}
+
+export const denyRequest = (uid) => {
+  return {
+    type: ActionType.DENY_REQUEST,
+    payload: uid,
+  }
+}

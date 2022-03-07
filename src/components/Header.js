@@ -18,7 +18,7 @@ export const Header = () => {
       </div>
       <FriendsComponent />
       <SignOut handleMode={handleMode} darkTheme={darkTheme} />
-      <PhoneResponsive />
+      <PhoneResponsive handleMode={handleMode} darkTheme={darkTheme} />
     </Layout>
   )
 }
@@ -45,20 +45,36 @@ const SignOut = ({ handleMode, darkTheme, styles }) => {
   )
 }
 
-const PhoneResponsive = () => {
+const PhoneResponsive = ({ handleMode, darkTheme }) => {
+  const { signOutHandler } = useContext(GlobalState)
   return (
     <div className="dropdown dropdown-end lg:hidden">
-      <div className="flex justify-center">
-        <label tabIndex="0" className="m-1 btn btn-ghost">
-          <GiHamburgerMenu size={25} />
-        </label>
-        <ul
-          tabIndex="0"
-          className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
-        >
-          <FriendsComponent styles={"flex flex-col"} />
-        </ul>
-      </div>
+      <label tabIndex="0" className="m-1 btn btn-ghost dark:text-white">
+        <GiHamburgerMenu size={25} />
+      </label>
+      <ul
+        tabIndex="0"
+        className="p-2 shadow menu dropdown-content dark:bg-gray-700 bg-white rounded-box w-52"
+      >
+        <FriendsComponent styles={"flex flex-col"} />
+
+        <div className="w-full flex justify-center">
+          <button
+            className="btn btn-accent mt-[0.5rem]"
+            onClick={signOutHandler}
+          >
+            Sign Out
+          </button>
+
+          <button className="mr-[0.7rem] p-[10px] rounded-lg dark:text-white">
+            {darkTheme ? (
+              <BsFillSunFill size={23} onClick={handleMode} />
+            ) : (
+              <BsFillMoonFill size={23} onClick={handleMode} />
+            )}
+          </button>
+        </div>
+      </ul>
     </div>
   )
 }

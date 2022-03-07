@@ -1,11 +1,10 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import Men from "../assets/men.svg"
 import { GlobalState } from "../context/Context"
+import { AiOutlineClose } from "react-icons/ai"
 
 const FriendsComponent = () => {
   const { usersData, user } = useContext(GlobalState)
-
-  console.log(usersData)
   return (
     <MainLayout>
       {usersData.friends.length < 1 ? (
@@ -13,7 +12,10 @@ const FriendsComponent = () => {
           You don't have any friends in your list currently
         </p>
       ) : (
-        <>
+        <div className="w-full flex flex-col items-center">
+          <h1 className="font-bold text-xl text-gray-700 dark:text-white mt-[1rem]">
+            All your added friends:
+          </h1>
           {usersData.friends.map((friend) => {
             const { displayName, photoURL, uid } = friend
             return (
@@ -26,7 +28,7 @@ const FriendsComponent = () => {
               />
             )
           })}
-        </>
+        </div>
       )}
     </MainLayout>
   )
@@ -41,14 +43,51 @@ const FriendRequestComponent = ({
   return (
     <Layout>
       <MessageContentLayout>
-        <img src={Men} alt="" className="w-[5rem]" />
+        <img src={Men} alt="avatar" className="w-[5rem]" />
         <div className="flex items-center">
           <NameComponent name={displayName} />
           <DateComponent timestamp={timestamp} />
         </div>
       </MessageContentLayout>
-      {/* <HandleRequestsButton uid={uid} currentUid={currentUid} /> */}
+      <HandleRequestsButton
+        uid={uid}
+        currentUid={currentUid}
+        displayName={displayName}
+      />
     </Layout>
+  )
+}
+
+const HandleRequestsButton = ({
+  uid,
+  currentUid,
+  friendRequest,
+  displayName,
+}) => {
+  const { setIsModalOpen, isModalOpen } = useContext(GlobalState)
+
+  const handleRemoveFriend = () => {
+    setIsModalOpen({
+      isOpen: true,
+      header: `Remove ${displayName} ?`,
+      message: "This action cannot be undone",
+      hasButton: true,
+      friendToRemoveId: uid,
+    })
+
+    /* acceptFriendRequest(currentUid, uid)
+    acceptFriendRequestState(uid, friendRequest) */
+  }
+
+  return (
+    <div className="dark:text-white">
+      <button
+        className="btn btn-outline btn-error dark:bg-gray-600"
+        onClick={handleRemoveFriend}
+      >
+        <AiOutlineClose size={25} />
+      </button>
+    </div>
   )
 }
 

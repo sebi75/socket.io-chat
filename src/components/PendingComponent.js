@@ -1,8 +1,11 @@
 import React, { useContext } from "react"
 import Men from "../assets/men.svg"
 import { GlobalState } from "../context/Context"
-import { AiOutlineCheck } from "react-icons/ai"
-import { acceptFriendRequest } from "../firebase/db/manageFriendRequest"
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
+import {
+  acceptFriendRequest,
+  denyFriendRequest,
+} from "../firebase/db/manageFriendRequest"
 
 const PendingComponent = () => {
   const { usersData, user } = useContext(GlobalState)
@@ -15,7 +18,10 @@ const PendingComponent = () => {
           No pending requests
         </p>
       ) : (
-        <>
+        <div className="w-full flex flex-col items-center">
+          <h1 className="font-bold text-xl text-gray-700 dark:text-white mt-[1rem]">
+            Pending friend requests:
+          </h1>
           {usersData.friendRequests.map((friendRequest) => {
             const { displayName, timestamp, photoURL, uid } = friendRequest
             let date = timestamp.toDate().toLocaleString()
@@ -31,7 +37,7 @@ const PendingComponent = () => {
               />
             )
           })}
-        </>
+        </div>
       )}
     </MainLayout>
   )
@@ -46,15 +52,15 @@ const FriendRequestComponent = ({
 }) => {
   return (
     <Layout>
-      <img src={Men} alt="" className="w-[5rem]" />
-
       <MessageContentLayout>
+        <img src={Men} alt="" className="w-[5rem]" />
         <div className="flex items-center">
           <NameComponent name={displayName} />
           <DateComponent timestamp={timestamp} />
         </div>
         <div className="flex items-center"></div>
       </MessageContentLayout>
+
       <HandleRequestsButton
         uid={uid}
         currentUid={currentUid}
@@ -65,17 +71,30 @@ const FriendRequestComponent = ({
 }
 
 const HandleRequestsButton = ({ uid, currentUid, friendRequest }) => {
-  const { acceptFriendRequestState } = useContext(GlobalState)
+  const { acceptFriendRequestState, denyFriendRequestState } =
+    useContext(GlobalState)
 
   const handleAcceptRequest = () => {
     acceptFriendRequest(currentUid, uid)
     acceptFriendRequestState(uid, friendRequest)
   }
 
+  const denyRequest = () => {
+    denyFriendRequest(currentUid, uid)
+    denyFriendRequestState(uid, friendRequest)
+  }
+
   return (
     <div className="dark:text-white">
       <button
-        className="btn btn-accent dark:bg-gray-600"
+        className="btn btn-outline btn-error dark:bg-gray-600"
+        onClick={denyRequest}
+      >
+        <AiOutlineClose size={25} />
+      </button>
+
+      <button
+        className="btn btn-accent dark:bg-gray-600 ml-[0.7rem]"
         onClick={handleAcceptRequest}
       >
         <AiOutlineCheck size={25} />
@@ -97,7 +116,7 @@ const DateComponent = ({ timestamp }) => {
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex items-center w-[90%] h-[7rem] md:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg duration-150 hover:bg-gray-300 dark:hover:bg-gray-800 dark:bg-gray-700">
+    <div className="flex flex-col lg:flex-row items-center w-[90%] h-[10rem] lg:h-[5rem] p-[0.5rem] my-[0.8rem] rounded-lg shadow-lg duration-150 hover:bg-gray-300 dark:hover:bg-gray-800 dark:bg-gray-700 justify-between cursor-pointer">
       {children}
     </div>
   )

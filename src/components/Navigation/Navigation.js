@@ -14,7 +14,7 @@ export const Navigation = ({}) => {
           <div className="w-full">
             <div className="w-full flex justify-center">
               {usersData.friends.length <= 0 && (
-                <p className="flex items-center justify-center font-bold text-base">
+                <p className="w-full font-bold text-base dark:text-white mt-[2rem] ml-[1.5rem]">
                   There is no chat to display
                 </p>
               )}

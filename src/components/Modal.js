@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useContext } from "react"
 import { GlobalState } from "../context/Context"
 
+import { removeFriend } from "../firebase/db/removeFriend"
+
 const Modal = ({ header, message }) => {
-  const { setIsModalOpen } = useContext(GlobalState)
+  const { setIsModalOpen, isModalOpen, removeFriendState, user } =
+    useContext(GlobalState)
 
   const node = useRef()
 
@@ -19,6 +22,16 @@ const Modal = ({ header, message }) => {
     }
   })
 
+  const removeFriendHandler = (e) => {
+    e.preventDefault()
+
+    removeFriendState(isModalOpen.friendToRemoveId)
+
+    removeFriend(user.id, isModalOpen.friendToRemoveId)
+
+    setIsModalOpen({ ...isModalOpen, confirmed: true, isOpen: false })
+  }
+
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-trans dark:bg-[rgba(255,255,255,0.3)] fixed duration-1000">
       <div
@@ -31,6 +44,14 @@ const Modal = ({ header, message }) => {
         <div className="w-[90%] h-[65%] flex items-center justify-center">
           <h1 className="dark:text-white text-base font-bold">{message}</h1>
         </div>
+        {isModalOpen.hasButton && (
+          <button
+            className="btn btn-error mb-[0.7rem] text-white"
+            onClick={removeFriendHandler}
+          >
+            Confirm
+          </button>
+        )}
       </div>
     </div>
   )
