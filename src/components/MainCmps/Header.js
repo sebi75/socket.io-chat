@@ -121,6 +121,8 @@ const AddFriendComponent = () => {
         message: "The Identifier you searched for is not in our database",
       })
 
+    setUsersUnique("")
+
     addFriend(usersUnique, user, setIsModalOpen, setIsLoading)
   }
 

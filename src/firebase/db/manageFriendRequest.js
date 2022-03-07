@@ -65,8 +65,8 @@ export const acceptFriendRequest = async (currentUid, uid, channelID) => {
   //create chat with the generated channelID:
   try {
     const chatChannelRef = doc(db, "chats", generateChannel)
-    const createChatChannel = setDoc(chatChannelRef, {
-      botMessage: "Helo chats",
+    const createChatChannel = await setDoc(chatChannelRef, {
+      messages: [],
     })
   } catch (error) {
     console.log(error)

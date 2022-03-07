@@ -1,5 +1,9 @@
 export const MessageContentLayout = ({ children }) => {
-  return <div className="flex justify-between">{children}</div>
+  return (
+    <div className="flex justify-center lg:justify-between w-full">
+      {children}
+    </div>
+  )
 }
 
 export const NameComponent = ({ name }) => {

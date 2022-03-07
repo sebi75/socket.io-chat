@@ -26,7 +26,7 @@ const HandleRequestsButton = ({ uid, currentUid, friendRequest }) => {
   }
 
   return (
-    <div className="dark:text-white">
+    <div className="flex dark:text-white">
       <button
         className="btn btn-outline btn-error dark:bg-gray-600"
         onClick={denyRequest}

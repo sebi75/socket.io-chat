@@ -8,7 +8,7 @@ const Friend = ({ name, photoURL, currentChannelID }) => {
   const { setLoadComponent, setChatData } = useContext(GlobalState)
   const { setMessages, setChannelID } = useContext(SocketContext)
 
-  let loadPhoto = typeof photoURL === "undefined" ? Men : photoURL
+  let loadPhoto = photoURL == null ? Men : photoURL
 
   const handleChangeChat = () => {
     setChannelID(currentChannelID) // set channel id to the current displayed

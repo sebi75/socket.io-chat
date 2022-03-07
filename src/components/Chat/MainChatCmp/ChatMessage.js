@@ -11,6 +11,8 @@ import {
 const ChatMessage = ({ message, timestamp, displayName, photoURL }) => {
   let loadImage = photoURL == null ? Men : photoURL
 
+  console.log(loadImage)
+
   return (
     <Layout>
       <img src={loadImage} alt="avatar" className="w-[3.5rem] mr-[1rem]" />
