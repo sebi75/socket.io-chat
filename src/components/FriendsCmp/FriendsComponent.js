@@ -31,7 +31,6 @@ const FriendsComponent = () => {
             All your added friends:
           </h1>
           {usersData.friends.map((friend) => {
-            console.log(friend)
             const { displayName, photoUrl, uid } = friend
             return (
               <FriendRequestComponent

@@ -87,6 +87,7 @@ export const MainChatComponent = () => {
             {messages.map((messageContent) => {
               const { message, timestamp, displayName, photoURL } =
                 messageContent
+              console.log(messageContent)
               return (
                 <ChatMessage
                   key={Math.random().toString(36)}
