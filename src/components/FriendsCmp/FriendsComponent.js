@@ -1,5 +1,7 @@
 import React, { useContext } from "react"
 import Men from "../../assets/men.svg"
+import Wilderness from "../../assets/wilderness.svg"
+
 import { GlobalState } from "../../context/Context"
 
 /* Styled componetns import */
@@ -18,9 +20,17 @@ const FriendsComponent = () => {
   return (
     <MainLayout>
       {usersData.friends.length < 1 ? (
-        <p className="dark:text-white text-gray-700 font-bold text-xl w-[80%] flex justify-center">
+        <>
+          <img
+            src={Wilderness}
+            alt="wilderness"
+            className="w-[80%] lg:w-[50%]"
+          />
+
+          {/*  <p className="dark:text-white text-gray-700 font-bold text-xl w-[80%] flex justify-center">
           You don't have any friends in your list currently
-        </p>
+        </p>  */}
+        </>
       ) : (
         <div className="w-full flex flex-col items-center">
           <h1 className="font-bold text-xl text-gray-700 dark:text-white mt-[1rem]">

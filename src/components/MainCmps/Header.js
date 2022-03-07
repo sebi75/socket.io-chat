@@ -114,7 +114,7 @@ const AddFriendComponent = () => {
   const { user, setIsModalOpen } = useContext(GlobalState)
 
   const addFriendHandler = () => {
-    if (usersUnique.length < 6)
+    if (usersUnique.length < 5)
       return setIsModalOpen({
         isOpen: true,
         header: "Invalid Id",

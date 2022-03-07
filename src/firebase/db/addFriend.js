@@ -33,11 +33,16 @@ export const addFriend = async (
       const checkFriends = usersDocData.friends.find(
         (friend) => friend.uid === targetIndex
       )
+
+      console.log("checkFriends", checkFriends)
+
       const checkSentRequests = usersDocData.sentRequests.find(
         (request) => request.uid === targetIndex
       )
 
-      let condition = checkFriends == null || checkSentRequests == null
+      console.log("checkSentRequests", checkSentRequests)
+
+      let condition = checkFriends == null && checkSentRequests == null
 
       if (!condition) {
         setIsModalOpen({
